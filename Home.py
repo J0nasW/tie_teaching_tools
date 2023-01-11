@@ -37,6 +37,7 @@ def clean_text(text):
 
 df = pd.DataFrame(columns=["Filename", "Character Count", "Word Count", "Potential Error"])
 tokenizer = RegexpTokenizer(r'\w+') # remove punctuation
+p_error = False
 
 uploaded_files = st.file_uploader("Choose a PDF file", accept_multiple_files=True, type="pdf")
 for uploaded_file in uploaded_files:
