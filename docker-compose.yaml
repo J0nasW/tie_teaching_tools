@@ -15,17 +15,16 @@ services:
       - "18101:8501"
     networks:
       - app-tier
-
-deploy:
-  resources:
-    reservations:
-      devices:
-      - driver: nvidia
-        capabilities:
-          - gpu
-          - utility # nvidia-smi
-          - compute # CUDA. Required to avoid "CUDA version: N/A"
-          - video   # NVDEC/NVENC. For instance to use a hardware accelerated ffmpeg. Skip it if you don't need it
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            capabilities:
+              - gpu
+              - utility # nvidia-smi
+              - compute # CUDA. Required to avoid "CUDA version: N/A"
+              - video   # NVDEC/NVENC. For instance to use a hardware accelerated ffmpeg. Skip it if you don't need it
 
 networks:
   app-tier:
