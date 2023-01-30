@@ -13,7 +13,7 @@ services:
       context: .
       dockerfile: ./DOCKERFILE
     ports:
-      - "8501:8501"
+      - "18101:8501"
     networks:
       - app-tier
 
