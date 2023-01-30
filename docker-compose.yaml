@@ -1,0 +1,23 @@
+version: '3.9'
+
+# Run as
+# docker-compose build; docker-compose up -d
+# Check with
+# docker ps
+# Then check the logs
+
+services:
+
+  tie-teaching-tools:
+    build:
+      context: .
+      dockerfile: ./DOCKERFILE
+    ports:
+      - "8501:8501"
+    networks:
+      - app-tier
+
+
+networks:
+  app-tier:
+    driver: bridge
