@@ -30,6 +30,9 @@ def init_application():
         if "url_infos" not in st.session_state:
             st.session_state["url_infos"] = []
 
+        if "check_gpt" not in st.session_state:
+            st.session_state["check_gpt"] = False
+
          # Initialization done --------------------------------------------------------------
         st.session_state.app_init = True
     
