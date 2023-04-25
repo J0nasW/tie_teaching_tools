@@ -126,51 +126,59 @@ def preprocess_text_for_abstractive_summarization(tokenizer, text):
 
 
 def read_pdf(file):
-    pdfReader = PdfReader(file)
-    count = len(pdfReader.pages)
-    all_page_text = ""
-    for i in range(count):
-        page = pdfReader.pages[i]
-        all_page_text += page.extract_text()
+    try:
+        pdfReader = PdfReader(file)
+        count = len(pdfReader.pages)
+        all_page_text = ""
+        for i in range(count):
+            page = pdfReader.pages[i]
+            all_page_text += page.extract_text()
 
-    return all_page_text
+        return all_page_text
+    except:
+        return ""
 
 
 def read_text_from_file(file):
 
     print(file.type)
+    
+    try:
 
-    # read text file
-    if file.type == "text/plain" or file.type == "text/markdown":
-        # To convert to a string based IO:
-        stringio = StringIO(file.getvalue().decode("utf-8"))
+        # read text file
+        if file.type == "text/plain" or file.type == "text/markdown":
+            # To convert to a string based IO:
+            stringio = StringIO(file.getvalue().decode("utf-8"))
 
-        # To read file as string:
-        file_content = stringio.read()
+            # To read file as string:
+            file_content = stringio.read()
 
-    # read pdf file
-    elif file.type == "application/pdf":
-        file_content = read_pdf(file)
+        # read pdf file
+        elif file.type == "application/pdf":
+            file_content = read_pdf(file)
 
-    # read docx file
-    elif (
-        file.type
-        == "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    ):
-        file_content = docx2txt.process(file)
+        # read docx file
+        elif (
+            file.type
+            == "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        ):
+            file_content = docx2txt.process(file)
 
-    elif (
-        file.type
-        == "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-    ):
-        file_content = ""
-        pres = Presentation(file)
-        for slide in pres.slides:
-            for shape in slide.shapes:
-                if hasattr(shape, "text"):
-                    file_content = file_content + " " + shape.text
+        elif (
+            file.type
+            == "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        ):
+            file_content = ""
+            pres = Presentation(file)
+            for slide in pres.slides:
+                for shape in slide.shapes:
+                    if hasattr(shape, "text"):
+                        file_content = file_content + " " + shape.text
 
-    else:
-        file_content = ""
+        else:
+            file_content = ""
 
-    return file_content
+        return file_content
+        
+    except:
+        return ""

@@ -10,6 +10,8 @@
 
 # IMPORT STATEMENTS ----------------------------------------------------------------
 import streamlit as st
+from random import randint
+
 
 
 def init_application():
@@ -32,6 +34,12 @@ def init_application():
 
         if "check_gpt" not in st.session_state:
             st.session_state["check_gpt"] = False
+            
+        if "create_embedding" not in st.session_state:
+            st.session_state["create_embedding"] = False
+            
+        if "file_uploader_key" not in st.session_state:
+            st.session_state["file_uploader_key"] = str(randint(1000, 100000000))
 
          # Initialization done --------------------------------------------------------------
         st.session_state.app_init = True
